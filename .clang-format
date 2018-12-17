@@ -1,0 +1,23 @@
+---
+BasedOnStyle: LLVM
+IndentWidth: 4
+
+Language: Cpp
+AllowShortFunctionsOnASingleLine: false
+AlwaysBreakTemplateDeclarations: true
+BraceWrapping:
+    AfterEnum: true
+    AfterClass: true
+    AfterFunction: true
+    AfterNamespace: true
+    AfterControlStatement: true
+    BeforeCatch: true
+    BeforeElse: true
+BreakBeforeBraces: Custom
+BreakConstructorInitializersBeforeComma: true
+ColumnLimit: 0
+PointerAlignment: Left
+SortIncludes: false
+SpaceAfterTemplateKeyword: false
+Standard: Cpp11
+TabWidth: 8
