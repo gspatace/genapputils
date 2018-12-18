@@ -4,106 +4,9 @@
 #include <string>
 #include <sstream>
 
-class EnvVarItem
-{
-  public:
-    EnvVarItem() = default;
-    EnvVarItem(const char* const Name, bool IsRequired, const char* const Value)
-        : mName(Name)
-        , mIsRequired(IsRequired)
-        , mValue(Value){};
-
-    ~EnvVarItem() = default;
-
-    std::string GetValue() const
-    {
-        return mValue;
-    }
-
-    bool IsSet() const
-    {
-        return mIsSet;
-    }
-
-    bool IsRequired() const
-    {
-        return mIsRequired;
-    }
-
-  public:
-    std::string mName{""};
-    std::string mValue;
-    bool mIsRequired{false};
-    bool mIsSet{false};
-
-    friend class EnvVarCache;
-};
-
-class IMissingRequiredEnvVarStrategy
-{
-  public:
-    virtual void HandleMissingRequiredEnvVar(const std::string& EnvVarName) = 0;
-};
-
-class INotRegisteredEnvVarStrategy
-{
-  public:
-    virtual void HandleNotRegisteredEnvVar(const std::string& EnvVarName) = 0;
-};
-
-template<typename ExType>
-class ExceptionThrowerMissingRequiredHandler : public IMissingRequiredEnvVarStrategy
-{
-  public:
-    virtual void HandleMissingRequiredEnvVar(const std::string& EnvVarName) override
-    {
-        std::ostringstream oss;
-        oss << "Environment Variable <";
-        oss << EnvVarName;
-        oss << "> was registred as Required, but is missing.";
-        throw ExType(oss.str());
-    }
-};
-
-template<typename ExType>
-class ExceptionThrowerNotRegisteredEnvVar : public INotRegisteredEnvVarStrategy
-{
-  public:
-    virtual void HandleNotRegisteredEnvVar(const std::string& EnvVarName) override
-    {
-        std::ostringstream oss;
-        oss << "Environment Variable <";
-        oss << EnvVarName;
-        oss << "> was not registred, but its usage was attempted.";
-        throw ExType(oss.str());
-    }
-};
-
-class StdErrLoggerMissingRequiredEnvVarHandler : public IMissingRequiredEnvVarStrategy
-{
-  public:
-    virtual void HandleMissingRequiredEnvVar(const std::string& EnvVarName) override
-    {
-        std::ostringstream oss;
-        oss << "Environment Variable <";
-        oss << EnvVarName;
-        oss << "> was registred as Required, but is missing.";
-        std::cerr << oss.str() << std::endl;
-    }
-};
-
-class StdErrLoggerNotRegisteredEnvVarHandler : public INotRegisteredEnvVarStrategy
-{
-  public:
-    virtual void HandleNotRegisteredEnvVar(const std::string& EnvVarName) override
-    {
-        std::ostringstream oss;
-        oss << "Environment Variable <";
-        oss << EnvVarName;
-        oss << "> was not registred, but its usage was attempted.";
-        std::cerr << oss.str() << std::endl;
-    }
-};
+#include "EnvVarItem.hpp"
+#include "MissingRequiredEnvVarImpls.hpp"
+#include "NotRegisteredEnvVarImpls.hpp"
 
 class EnvVarCache
 {
@@ -178,20 +81,4 @@ class EnvVarCache
     std::unique_ptr<INotRegisteredEnvVarStrategy> mNotRegisteredEnvVarHandler;
 
     friend class EnvVarRegistrar;
-};
-
-class EnvVarRegistrar final
-{
-  public:
-    static void RegisterAppEnvVars(const std::vector<EnvVarItem>& EnvVars,
-                                   std::unique_ptr<IMissingRequiredEnvVarStrategy> ErrHandler = nullptr,
-                                   std::unique_ptr<INotRegisteredEnvVarStrategy> NotRegisteredErrHandler = nullptr)
-    {
-        EnvVarCache::Instance().Register(EnvVars);
-        if (nullptr != ErrHandler.get())
-            EnvVarCache::Instance().RegisterMissingRequiredHandler(std::move(ErrHandler));
-        if (nullptr != NotRegisteredErrHandler.get())
-            EnvVarCache::Instance().RegisterNotRegisteredEnvVarHandler(std::move(NotRegisteredErrHandler));
-        EnvVarCache::Instance().GetAll();
-    }
 };
