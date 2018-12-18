@@ -118,7 +118,7 @@ class EnvVarCache
         std::map<std::string, EnvVarItem>::iterator iter = mEnvVarCache.find(Key);
         if (iter == mEnvVarCache.end())
         {
-            mNotRegisteredEnvVarHandler->HandleNotRegisteredEnvVar(iter->second.mName);
+            mNotRegisteredEnvVarHandler->HandleNotRegisteredEnvVar(Key);
             return "";
         }
 
@@ -158,7 +158,6 @@ class EnvVarCache
 
             if (iter->second.IsRequired() && !iter->second.IsSet())
             {
-                //throw std::runtime_error("Required env var is not set");
                 mMissingRequiredHandler->HandleMissingRequiredEnvVar(iter->second.mName);
             }
         }
