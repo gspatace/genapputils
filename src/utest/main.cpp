@@ -3,6 +3,7 @@
 
 #include "EnvVarCache.hpp"
 #include "ParamItem.hpp"
+#include "EnvVarRegistrar.hpp"
 #include "ie_genapputils.hpp"
 
 int main(int argc, char* argv[])
