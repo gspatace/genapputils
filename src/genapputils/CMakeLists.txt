@@ -6,4 +6,4 @@ include_directories("${PROJECT_SOURCE_DIR}/include/smartparams")
 
 add_definitions(-DGENAPPUTILS_EXPORTS)
 
-add_library(genapputils SHARED EnvVars.cpp ParamItem.cpp)
+add_library(genapputils SHARED EnvVarItem.cpp EnvVarRegistrar.cpp EnvVarCache.cpp ParamItem.cpp)

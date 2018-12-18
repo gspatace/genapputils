@@ -2,33 +2,20 @@
 
 #include <string>
 
+#include "ie_genapputils.hpp"
+
 class EnvVarItem
 {
   public:
     EnvVarItem() = default;
-    EnvVarItem(const char* const Name, bool IsRequired, const char* const Value)
-        : mName(Name)
-        , mIsRequired(IsRequired)
-        , mValue(Value){};
-
+    mDLLIMPORTEXPORT EnvVarItem(const char* const Name, bool IsRequired, const char* const Value);
     ~EnvVarItem() = default;
 
-    std::string GetValue() const
-    {
-        return mValue;
-    }
-
-    bool IsSet() const
-    {
-        return mIsSet;
-    }
-
-    bool IsRequired() const
-    {
-        return mIsRequired;
-    }
-
-  public:
+  private:
+    std::string GetValue() const;
+    bool IsSet() const;
+    bool IsRequired() const;
+    
     std::string mName{""};
     std::string mValue;
     bool mIsRequired{false};

@@ -3,78 +3,26 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <memory>
 
 #include "EnvVarItem.hpp"
 #include "MissingRequiredEnvVarImpls.hpp"
 #include "NotRegisteredEnvVarImpls.hpp"
 
+#include "ie_genapputils.hpp"
+
 class EnvVarCache
 {
   public:
-    static EnvVarCache& Instance()
-    {
-        static EnvVarCache mInstance;
-        return mInstance;
-    }
-    std::string GetValueByKey(const std::string& Key)
-    {
-        std::map<std::string, EnvVarItem>::iterator iter = mEnvVarCache.find(Key);
-        if (iter == mEnvVarCache.end())
-        {
-            mNotRegisteredEnvVarHandler->HandleNotRegisteredEnvVar(Key);
-            return "";
-        }
-
-        return iter->second.GetValue();
-    }
+    static mDLLIMPORTEXPORT EnvVarCache& Instance();
+    std::string mDLLIMPORTEXPORT GetValueByKey(const std::string& Key);
 
   private:
-    EnvVarCache()
-        : mMissingRequiredHandler(new StdErrLoggerMissingRequiredEnvVarHandler())
-        , mNotRegisteredEnvVarHandler(new ExceptionThrowerNotRegisteredEnvVar<std::runtime_error>())
-    {
-    }
-
-    void Register(const std::vector<EnvVarItem>& EnvVars)
-    {
-        for (std::vector<EnvVarItem>::const_iterator cIter = std::begin(EnvVars); cIter != std::end(EnvVars); ++cIter)
-        {
-            mEnvVarCache[cIter->mName] = *cIter;
-        }
-    }
-
-    void GetAll()
-    {
-        for (std::map<std::string, EnvVarItem>::iterator iter = mEnvVarCache.begin(); iter != mEnvVarCache.end(); ++iter)
-        {
-            if (!iter->second.IsSet())
-            { //avoid re-reading an env var if it was already processed
-                char* value = nullptr;
-                size_t readLength = 0;
-                _dupenv_s(&value, &readLength, iter->second.mName.c_str());
-                if (readLength > 0)
-                {
-                    iter->second.mValue = value;
-                    iter->second.mIsSet = true;
-                }
-            }
-
-            if (iter->second.IsRequired() && !iter->second.IsSet())
-            {
-                mMissingRequiredHandler->HandleMissingRequiredEnvVar(iter->second.mName);
-            }
-        }
-    }
-
-    void RegisterMissingRequiredHandler(std::unique_ptr<IMissingRequiredEnvVarStrategy> MissingReqHandler)
-    {
-        mMissingRequiredHandler = std::move(MissingReqHandler);
-    }
-
-    void RegisterNotRegisteredEnvVarHandler(std::unique_ptr<INotRegisteredEnvVarStrategy> NotRegisteredHandler)
-    {
-        mNotRegisteredEnvVarHandler = std::move(NotRegisteredHandler);
-    }
+    EnvVarCache();
+    void Register(const std::vector<EnvVarItem>& EnvVars);
+    void GetAll();
+    void RegisterMissingRequiredHandler(std::unique_ptr<IMissingRequiredEnvVarStrategy> MissingReqHandler);
+    void RegisterNotRegisteredEnvVarHandler(std::unique_ptr<INotRegisteredEnvVarStrategy> NotRegisteredHandler);
 
     std::map<std::string, EnvVarItem> mEnvVarCache;
     std::unique_ptr<IMissingRequiredEnvVarStrategy> mMissingRequiredHandler;
