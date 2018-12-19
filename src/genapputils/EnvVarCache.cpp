@@ -40,7 +40,9 @@ void EnvVarCache::GetAll()
         { //avoid re-reading an env var if it was already processed
             char* value = nullptr;
             size_t readLength = 0;
+#ifdef WIN32
             _dupenv_s(&value, &readLength, iter->second.mName.c_str());
+#endif
             if (readLength > 0)
             {
                 iter->second.mValue = value;
