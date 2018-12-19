@@ -9,10 +9,36 @@
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/_builds/Debug/app.exe",
-            "args": [],
+            "args": [
+                "-P1VALUE", 
+                "v1", 
+                "-P2BOOL", 
+                "-P3VALUE", 
+                "v3", 
+                "--PARAM4_VALUE", 
+                "v4param", 
+                "-P5BOOL"
+                ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "environment": [],
+            "environment": [
+                {
+                    "name":"ONE_ENV_VAR",
+                    "value":"One env var",
+                },
+                {
+                    "name":"BLIZZ_API_KEY",
+                    "value":"One asdawdsa var",
+                },
+                {
+                    "name":"REALLY_IMPORTANT_ENV_VAR",
+                    "value":"really Imp Env Var",
+                },
+                {
+                    "name":"ANOTHER_ENV_VAR",
+                    "value":"One asdawdsa var",
+                }
+            ],
             "externalConsole": false
         }
     ]
