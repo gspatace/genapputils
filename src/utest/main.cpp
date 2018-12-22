@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "EnvVarCache.hpp"
-#include "ParamItem.hpp"
+#include "ArgumentsParser.hpp"
 #include "EnvVarRegistrar.hpp"
 #include "ie_genapputils.hpp"
 
@@ -18,6 +18,7 @@ int main(int argc, char* argv[])
     {
         EnvVarRegistrar::RegisterAppEnvVars({{"ONE_ENV_VAR", true, ""},
                                              {"REALLY_IMPORTANT_ENV_VAR", true, ""},
+                                             {"BLIZZ_API_KEY", true, ""},
                                              {"ANOTHER_ENV_VAR", false, ""}},
                                             std::make_unique<StdErrLoggerMissingRequiredEnvVarHandler>(),
                                             std::make_unique<StdErrLoggerNotRegisteredEnvVarHandler>());
@@ -27,23 +28,33 @@ int main(int argc, char* argv[])
         std::cerr << Ex.what() << std::endl;
     }
     ////EnvVarCache envVarCache(allEnvVars);
-    EnvVarCache::Instance().GetValueByKey("BLIZZ_API_KEY");
-    EnvVarCache::Instance().GetValueByKey("REQUEST_DELAY");
+    EnvVarCache::Instance().GetValueByKey("REALLY_IMPORTANT_ENV_VAR");
+    EnvVarCache::Instance().GetValueByKey("ANOTHER_ENV_VAR");
     EnvVarCache::Instance().GetValueByKey("BLIZZ_API_KEY");
     EnvVarCache::Instance().GetValueByKey("BLIZZ_API_KEY");
     EnvVarCache::Instance().GetValueByKey("ONE_ENV_VAR");
 
     const std::vector<ParamItem> appParams = {
-        {"P1VALUE", false},
-        {"P2BOOL", true},
-        {"P3VALUE", false},
-        {"P4VALUE", false, "PARAM4_VALUE"},
-        {"P5BOOL", true}};
+        {"P1VALUE", true},
+        {"P2BOOL", false, true},
+        {"P3VALUE", true},
+        {"P4VALUE", false, false, "PARAM4_VALUE"},
+        {"P5BOOL", true, true},
+        {"P6VALUE", true }
+    };
 
     ArgumentParser argParser(appParams);
-    argParser.Parse(argc, argv);
+
+    try
+    {
+        argParser.Parse(argc, argv);
+    }
+    catch (std::exception& ex)
+    {
+        std::cout << ex.what() << std::endl;
+    }
 
     std::string p1Value = argParser.GetValue<std::string>("P3VALUE");
+    bool p2Value = argParser.GetValue<bool>("P2BOOL");
 
-    //EnvVarCache<EnvVarRegistrar>::Instance().GetValueByKey("something");
 }
