@@ -11,6 +11,7 @@
 			"-DCMAKE_GENERATOR_PLATFORM=x64",
 			"-DMEM_MODEL=x64"
 		],
+		"cmake.generator": "Visual Studio 15 2017",
 		"files.associations": {
 			"xstring": "cpp",
 			"ostream": "cpp",
