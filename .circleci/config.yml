@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: gspatace/cpptoolbox:0.0.1
+    steps:
+      - checkout
+      - run:
+          name: CMake gen
+          command: cmake -H. -B_builds -G "Unix Makefiles" -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++
+      - run:
+          name: compile
+          command: | 
+              cd _builds 
+              make
