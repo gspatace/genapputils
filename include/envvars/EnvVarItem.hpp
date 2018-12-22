@@ -17,8 +17,8 @@ class EnvVarItem
     bool IsRequired() const;
     
     std::string mName{""};
-    std::string mValue;
     bool mIsRequired{false};
+    std::string mValue;
     bool mIsSet{false};
 
     friend class EnvVarCache;

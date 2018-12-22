@@ -55,6 +55,8 @@ int main(int argc, char* argv[])
     }
 
     std::string p1Value = argParser.GetValue<std::string>("P3VALUE");
+    std::cout<<p1Value<<std::endl;
     bool p2Value = argParser.GetValue<bool>("P2BOOL");
+    std::cout<<p2Value<<std::endl;
 
 }

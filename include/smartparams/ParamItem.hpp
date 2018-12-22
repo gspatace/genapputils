@@ -33,10 +33,10 @@ class ParamItem
 
   private:
     std::string mParamShortName{""};
-    std::string mParamLongName{""};
+    bool mIsRequired{false};
     bool mIsBoolean{false};
     bool mIsSet{false};
-    bool mIsRequired{false};
+    std::string mParamLongName{""};
     std::variant<std::string, bool> mValue{false};
 
     friend class ArgumentParser;
