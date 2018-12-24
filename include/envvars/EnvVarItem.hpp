@@ -15,7 +15,7 @@ class EnvVarItem
     std::string GetValue() const;
     bool IsSet() const;
     bool IsRequired() const;
-    
+
     std::string mName{""};
     bool mIsRequired{false};
     std::string mValue;

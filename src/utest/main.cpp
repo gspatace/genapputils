@@ -40,8 +40,7 @@ int main(int argc, char* argv[])
         {"P3VALUE", true},
         {"P4VALUE", false, false, "PARAM4_VALUE"},
         {"P5BOOL", true, true},
-        {"P6VALUE", true }
-    };
+        {"P6VALUE", true}};
 
     ArgumentParser argParser(appParams);
 
@@ -55,8 +54,7 @@ int main(int argc, char* argv[])
     }
 
     std::string p1Value = argParser.GetValue<std::string>("P3VALUE");
-    std::cout<<p1Value<<std::endl;
+    std::cout << p1Value << std::endl;
     bool p2Value = argParser.GetValue<bool>("P2BOOL");
-    std::cout<<p2Value<<std::endl;
-
+    std::cout << p2Value << std::endl;
 }
