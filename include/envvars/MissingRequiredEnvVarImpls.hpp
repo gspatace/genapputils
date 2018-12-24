@@ -14,7 +14,7 @@ class ExceptionThrowerMissingRequiredHandler : public IMissingRequiredEnvVarStra
         std::ostringstream oss;
         oss << "Environment Variable <";
         oss << EnvVarName;
-        oss << "> was registred as Required, but is missing.";
+        oss << "> was registred as Required, but is missing";
         throw ExType(oss.str());
     }
 };
