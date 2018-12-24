@@ -45,7 +45,7 @@ void EnvVarCache::GetAll()
             if (readLength > 0)
 #else
             char* value = std::getenv(iter->second.mName.c_str());
-            if( nullptr != value)
+            if( nullptr == value)
 #endif
             {
                 iter->second.mValue = value;
