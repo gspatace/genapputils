@@ -2,14 +2,17 @@ version: 2
 jobs:
   build:
     docker:
-      - image: gspatace/cpptoolbox:0.0.1
+      - image: gspatace/cpptoolbox:0.0.2
     steps:
       - checkout
       - run:
-          name: CMake gen
-          command: cmake -H. -B_builds -G "Unix Makefiles" -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++
+          name: CMake file generation
+          command: cmake -H. -B_builds -G "Unix Makefiles" -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DMEM_MODEL=x64 -D3RDPARTIES_ROOT=/3rdparties
       - run:
-          name: compile
-          command: | 
-              cd _builds 
-              make
+          name: Compile
+          command: cmake --build _builds
+      - run:
+          name: Run Tests
+          command: |
+            cd _builds
+            ctest -VV
