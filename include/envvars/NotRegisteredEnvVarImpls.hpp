@@ -5,7 +5,6 @@
 
 #include "INotRegisteredEnvVarStrategy.hpp"
 
-
 template<typename ExType>
 class ExceptionThrowerNotRegisteredEnvVar : public INotRegisteredEnvVarStrategy
 {
@@ -19,7 +18,6 @@ class ExceptionThrowerNotRegisteredEnvVar : public INotRegisteredEnvVarStrategy
         throw ExType(oss.str());
     }
 };
-
 
 class StdErrLoggerNotRegisteredEnvVarHandler : public INotRegisteredEnvVarStrategy
 {

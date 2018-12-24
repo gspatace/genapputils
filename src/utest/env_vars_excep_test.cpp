@@ -21,6 +21,7 @@ TEST(EnvVarSanity, EnvVarsReqMissingExcep)
             EXPECT_STREQ(exText.c_str(), ex.what());
             throw;
         }
-    }, std::logic_error);
+    },
+                 std::logic_error);
 }
 } // namespace testing

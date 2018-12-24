@@ -71,7 +71,7 @@ void ArgumentParser::CheckRequiredParams() const
         {
             const auto& processed = mProcessedParams.find(item.GetShortName());
             if (processed == mProcessedParams.end() ||
-                !processed->second.IsSet() )
+                !processed->second.IsSet())
             {
                 std::ostringstream oss;
                 oss << "Parameter ";
