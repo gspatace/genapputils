@@ -3,7 +3,6 @@
 #include "gtest/gtest.h"
 
 // Keep argc, argv
-
 int passthru_argc;
 char** passthru_argv;
 
@@ -25,7 +24,7 @@ TEST(SmartParams, SmartParamsSanity)
         {"P3VALUE", true},
         {"P4VALUE", false, false, "PARAM4_VALUE"},
         {"P5BOOL", true, true},
-        {"P6VALUE", true}};
+        {"P6VALUE", false}};
 
     ArgumentParser argParser(appParams);
 
@@ -36,7 +35,6 @@ TEST(SmartParams, SmartParamsSanity)
     catch (std::exception& ex)
     {
         std::cout << ex.what() << std::endl;
-        //throw;
     }
 
     std::string p1Val = argParser.GetValue<std::string>("P1VALUE");
