@@ -51,7 +51,6 @@ void ArgumentParser::Parse(int argc, const char* const argv[])
             theParam.mIsSet = true;
 
             //finally push it in the processed map
-            //mProcessedParams[theParam.GetShortName()] = theParam;
             mProcessedParams.try_emplace(theParam.GetShortName(), theParam);
         }
         else
@@ -80,15 +79,6 @@ void ArgumentParser::CheckRequiredParams() const
                 throw std::logic_error(oss.str());
             }
         }
-
-        // if (item.IsRequired() && !item.IsSet())
-        // {
-        //     std::ostringstream oss;
-        //     oss << "Parameter ";
-        //     oss << item.GetShortName();
-        //     oss << " is required, but was not given.";
-        //     throw std::logic_error(oss.str());
-        // }
     }
 }
 

@@ -32,3 +32,7 @@ set_tests_properties( EnvVarsReqMissingEx PROPERTIES
     ENVIRONMENT 
         "ONE_ENV_VAR=one env var value"
 )
+
+add_executable( smartParamsSanity smart_params_sanity.cpp)
+target_link_libraries( smartParamsSanity genapputils gtest "${EXTRALIBS}" )
+add_test( NAME SmartParamsSanity WORKING_DIRECTORY "${CMAKE_BINARY_DIR}" COMMAND smartParamsSanity -P1VALUE v1 -P2BOOL -P3VALUE v3 --PARAM4_VALUE p4value -P5BOOL )
