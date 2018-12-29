@@ -3,8 +3,7 @@
 EnvVarItem::EnvVarItem(const char* const Name, bool IsRequired, const char* const Value)
     : mName(Name)
     , mIsRequired(IsRequired)
-    , mValue(Value)
-{};
+    , mValue(Value){};
 
 std::string EnvVarItem::GetValue() const
 {

@@ -6,7 +6,7 @@
 #define EXPIMP
 #else
 #define mDLLIMPORTEXPORT __declspec(dllimport)
-#define	EXPIMP extern
+#define EXPIMP extern
 #endif // GENAPPUTILS_EXPORTS
 #else  // WIN32
 #define mDLLIMPORTEXPORT

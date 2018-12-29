@@ -1,6 +1,8 @@
-﻿cmake_minimum_required (VERSION 3.8)
+cmake_minimum_required (VERSION 3.8)
 
 project ("GenAppUtils")
+
+enable_testing()
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -16,5 +18,23 @@ SET(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS} ${COMPILER_WARNINGS}")
 SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
+
+#3rdparties area
+if(NOT DEFINED MEM_MODEL)
+message( FATAL_ERROR "Memory model not defined, exiting...")
+else()
+if("x64" STREQUAL MEM_MODEL)
+SET(3RDPARTIES_ROOT_ARCH "${3RDPARTIES_ROOT}/x64")
+else()
+SET(3RDPARTIES_ROOT_ARCH "${3RDPARTIES_ROOT}/x86")
+endif()
+endif()
+
+message("Using root 3rdparties from ${3RDPARTIES_ROOT_ARCH}")
+
+#GoogleTest
+SET(GOOGLETEST_INC "${3RDPARTIES_ROOT_ARCH}/googletest/include")
+SET(GOOGLETEST_LIB "${3RDPARTIES_ROOT_ARCH}/googletest/lib")
+
 
 add_subdirectory ("src")
