@@ -3,16 +3,11 @@
 #include <exception>
 #include <string>
 
-class UnrecognizedTokenException : public std::exception
+class UnrecognizedTokenException : public std::runtime_error
 {
   public:
-    UnrecognizedTokenException()
-        : std::exception()
-    {
-    }
-
     UnrecognizedTokenException(const std::string& Message)
-        : std::exception(Message.c_str())
+        : std::runtime_error(Message.c_str())
     {
     }
 };

@@ -2,16 +2,11 @@
 
 #include <exception>
 #include <string>
-class MissingRequiredException : public std::exception
+class MissingRequiredException : public std::runtime_error
 {
   public:
-    MissingRequiredException()
-        : std::exception()
-    {
-    }
-
     MissingRequiredException(const std::string& Message)
-        : std::exception(Message.c_str())
+        : std::runtime_error(Message.c_str())
     {
     }
 };

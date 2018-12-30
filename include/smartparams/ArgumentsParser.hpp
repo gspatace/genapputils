@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "ParamItem.hpp"
 #include "MissingRequiredImpls.hpp"
 #include "UnrecognizedTokenImpls.hpp"
