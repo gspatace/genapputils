@@ -13,8 +13,14 @@ RetVal ArgumentParser::GetValue(const std::string& Name) const
     return {};
 }
 
-ArgumentParser::ArgumentParser(const ParamVector_t& Params)
-    : mAllParameters(Params){};
+ArgumentParser::ArgumentParser(const ParamVector_t& Params,
+                               MissingStrategyHandlerUPtr_t MissingHandler,
+                               UnrecognizedTokenStrHandlerUPtr_t BadTokenHandler)
+    : mAllParameters(Params)
+{
+    mMissingParamHandler = std::move(MissingHandler);
+    mUnTokenHandler = std::move(BadTokenHandler);
+};
 
 void ArgumentParser::Parse(int argc, const char* const argv[])
 {
@@ -55,7 +61,7 @@ void ArgumentParser::Parse(int argc, const char* const argv[])
         }
         else
         {
-            std::cerr << "Unrecognized token: " << str << std::endl;
+            mUnTokenHandler->Handle(str);
         }
     }
 
@@ -72,11 +78,7 @@ void ArgumentParser::CheckRequiredParams() const
             if (processed == mProcessedParams.end() ||
                 !processed->second.IsSet())
             {
-                std::ostringstream oss;
-                oss << "Parameter ";
-                oss << item.GetShortName();
-                oss << " is required, but was not given.";
-                throw std::logic_error(oss.str());
+                mMissingParamHandler->Handle(item.GetShortName());
             }
         }
     }
