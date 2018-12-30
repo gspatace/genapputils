@@ -36,3 +36,15 @@ set_tests_properties( EnvVarsReqMissingEx PROPERTIES
 add_executable( smartParamsSanity smart_params_sanity.cpp)
 target_link_libraries( smartParamsSanity genapputils gtest "${EXTRALIBS}" )
 add_test( NAME SmartParamsSanity WORKING_DIRECTORY "${CMAKE_BINARY_DIR}" COMMAND smartParamsSanity -P1VALUE v1 -P2BOOL -P3VALUE v3 --PARAM4_VALUE p4value -P5BOOL )
+
+add_executable( smartParamsMyException smart_params_exceptions.cpp )
+target_link_libraries( smartParamsMyException genapputils gtest "${EXTRALIBS}")
+add_test( NAME SmartParamsMyException WORKING_DIRECTORY "${CMAKE_BINARY_DIR}" COMMAND smartParamsMyException )
+
+add_executable( smartParamsMissingStderrLogging smart_params_missing_stderr_logging.cpp )
+target_link_libraries( smartParamsMissingStderrLogging genapputils gtest "${EXTRALIBS}" )
+add_test( NAME SmartParamsMissingStderrLogging WORKING_DIRECTORY "${CMAKE_BINARY_DIR}" COMMAND smartParamsMissingStderrLogging )
+
+add_executable( smartParamsBadTokenStderrLogging smart_params_badtoken_stderr_logging.cpp )
+target_link_libraries( smartParamsBadTokenStderrLogging genapputils gtest "${EXTRALIBS}" )
+add_test( NAME SmartParamsBadTokenStderrLogging WORKING_DIRECTORY "${CMAKE_BINARY_DIR}" COMMAND smartParamsBadTokenStderrLogging -P1VALUE v1 BadToken )
