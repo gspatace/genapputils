@@ -1,21 +1,55 @@
 {
-    
-		"cmake.configureOnOpen": true,
-		"cmake.buildDirectory": "${workspaceRoot}/_builds",
-		"cmake.useCMakeServer": false,
-		"cmake.clearOutputBeforeBuild": true,
-		"cmake.ctestArgs": [
-			"--verbose"
-		],
-		"cmake.configureArgs": [
-			"-DCMAKE_GENERATOR_PLATFORM=x64",
-			"-DMEM_MODEL=x64",
-			"-D3RDPARTIES_ROOT=E:/3rdparties"
-		],
-		"cmake.generator": "Visual Studio 15 2017",
-		"files.associations": {
-			"xstring": "cpp",
-			"ostream": "cpp",
-			"sstream": "cpp"
+	"telemetry.enableTelemetry": false,
+	"gitlens.defaultDateStyle": "absolute",
+	"gitlens.hovers.currentLine.over": "line",
+	"gitlens.advanced.telemetry.enabled": false,
+	"gitlens.blame.avatars": false,
+	"gitlens.blame.separateLines": false,
+	"gitlens.codeLens.recentChange.enabled": false,
+	"gitlens.blame.compact": false,
+	"gitlens.blame.highlight.enabled": false,
+	"gitlens.codeLens.authors.enabled": false,
+	"gitlens.codeLens.enabled": false,
+	"gitlens.currentLine.enabled": false,
+	"terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+	"terminal.integrated.shell.linux": "/bin/bash",
+	"todo-tree.defaultHighlight": {
+		"background": "green",
+		"foreground": "blue",
+		"type": "tag"
+	},
+	"todo-tree.customHighlight": {
+		"TODO": {
+			"background": "green",
+			"foreground": "blue",
+			"type": "tag",
+			"icon": "check"
+		},
+		"FIXME": {
+			"background": "yellow",
+			"foreground": "red",
+			"type": "tag",
+			"icon": "alert"
 		}
+	},
+	"breadcrumbs.enabled": true,
+	"cmake.configureOnOpen": true,
+	"cmake.buildDirectory": "${workspaceRoot}/_builds/win64",
+	"cmake.useCMakeServer": false,
+	"cmake.clearOutputBeforeBuild": true,
+	"cmake.ctestArgs": [
+		"--verbose"
+	],
+	"cmake.configureArgs": [
+		"-DCMAKE_GENERATOR_PLATFORM=x64",
+		"-DMEM_MODEL=x64",
+		"-D3RDPARTIES_ROOT=E:/3rdparties"
+	],
+	"cmake.generator": "Visual Studio 15 2017",
+	"files.associations": {
+		"xstring": "cpp",
+		"ostream": "cpp",
+		"sstream": "cpp",
+		"stdexcept": "cpp"
 	}
+}
