@@ -41,11 +41,10 @@
 		"--verbose"
 	],
 	"cmake.configureArgs": [
-		"-DCMAKE_GENERATOR_PLATFORM=x64",
 		"-DMEM_MODEL=x64",
 		"-D3RDPARTIES_ROOT=E:/3rdparties"
 	],
-	"cmake.generator": "Visual Studio 15 2017",
+	"cmake.generator": "Unix Makefiles",
 	"files.associations": {
 		"xstring": "cpp",
 		"ostream": "cpp",
