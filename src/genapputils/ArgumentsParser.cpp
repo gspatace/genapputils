@@ -42,18 +42,10 @@ void ArgumentParser::Parse(int argc, const char* const argv[])
                           return true;
                       }));
 
-            ParamItem theParam;
-            if (isShortName)
-                theParam = FindByName(str, ShortNameComparator);
-            else
-                theParam = FindByName(str, LongNameComparator);
+            ParamItem theParam = isShortName ? FindByName(str, ShortNameComparator) : FindByName(str,LongNameComparator);
 
             //now the setting
-            if (theParam.IsBoolean())
-                theParam.mValue = true;
-            else
-                theParam.mValue = std::string(argv[++i]);
-
+            theParam.IsBoolean() ? theParam.mValue = true : theParam.mValue = std::string(argv[++i]);
             theParam.mIsSet = true;
 
             //finally push it in the processed map
