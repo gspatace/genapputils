@@ -6,24 +6,22 @@
 #include "MissingRequiredImpls.hpp"
 #include "UnrecognizedTokenImpls.hpp"
 
+template 
+    <
+        class MissingParameterHandlerPolicy = StdErrLoggerHandler,
+        class UnrecognizedTokenHandlerPolicy = UnrecognizedStdErrLoggerHandler
+    >
 class ArgumentParser
 {
     using ParamNameComp_t = std::function<bool(const ParamItem& Param, const std::string& Value)>;
     using ParamMap_t = std::map<std::string, ParamItem>;
     using ParamMapConstIter_t = ParamMap_t::const_iterator;
     using ParamVector_t = std::vector<ParamItem>;
-    using MissingStrategyHandlerUPtr_t = std::unique_ptr<IMissingRequiredParameterStrategy>;
-    using UnrecognizedTokenStrHandlerUPtr_t = std::unique_ptr<IUnrecognizedTokenStrategy>;
 
   public:
-    ArgumentParser(const ParamVector_t& Params,
-                   MissingStrategyHandlerUPtr_t MissingHandler = std::make_unique<StdErrLoggerHandler>(),
-                   UnrecognizedTokenStrHandlerUPtr_t BadTokenHandler = std::make_unique<UnrecognizedStdErrLoggerHandler>())
+    ArgumentParser(const ParamVector_t& Params)
         : mAllParameters(Params)
-    {
-        mMissingParamHandler = std::move(MissingHandler);
-        mUnTokenHandler = std::move(BadTokenHandler);
-    };
+    {};
 
     template<typename RetVal>
     RetVal GetValue(const std::string& Name) const
@@ -66,7 +64,7 @@ class ArgumentParser
             }
             else
             {
-                mUnTokenHandler->Handle(str);
+                mUnTokenHandler.Handle(str);
             }
         }
 
@@ -84,7 +82,7 @@ class ArgumentParser
                 if (processed == mProcessedParams.end() ||
                     !processed->second.IsSet())
                 {
-                    mMissingParamHandler->Handle(item.GetShortName());
+                    mMissingParamHandler.Handle(item.GetShortName());
                 }
             }
         }
@@ -112,6 +110,6 @@ class ArgumentParser
 
     ParamVector_t mAllParameters;
     ParamMap_t mProcessedParams;
-    MissingStrategyHandlerUPtr_t mMissingParamHandler;
-    UnrecognizedTokenStrHandlerUPtr_t mUnTokenHandler;
+    MissingParameterHandlerPolicy mMissingParamHandler = {};
+    UnrecognizedTokenHandlerPolicy mUnTokenHandler = {};
 };

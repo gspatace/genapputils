@@ -39,5 +39,6 @@ class ParamItem
     std::string mParamLongName{""};
     std::variant<std::string, bool> mValue{false};
 
+    template<typename T, typename U>
     friend class ArgumentParser;
 };
