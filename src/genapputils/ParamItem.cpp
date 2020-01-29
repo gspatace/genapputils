@@ -8,7 +8,7 @@ ParamItem::ParamItem(
     : mParamShortName(ParamShortName)
     , mIsRequired(IsRequiredParam)
     , mIsBoolean(IsBooleanParam)
-    , mParamLongName(LongParamName){};
+    , mParamLongName(LongParamName){}
 
 std::string ParamItem::GetShortName() const
 {
