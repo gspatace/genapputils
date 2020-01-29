@@ -20,7 +20,7 @@ ArgumentParser::ArgumentParser(const ParamVector_t& Params,
 {
     mMissingParamHandler = std::move(MissingHandler);
     mUnTokenHandler = std::move(BadTokenHandler);
-};
+}
 
 void ArgumentParser::Parse(int argc, const char* const argv[])
 {

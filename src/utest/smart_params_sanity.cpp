@@ -52,4 +52,4 @@ TEST(SmartParams, SmartParamsSanity)
     bool p5Passed = argParser.GetValue<bool>("P5BOOL");
     ASSERT_EQ(p5Passed, true);
 }
-}; // namespace testing
+} // namespace testing
