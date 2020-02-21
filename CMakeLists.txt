@@ -11,7 +11,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 SET(COMPILER_FLAGS "/D WIN32 /W4 /WX /EHsc")
 else()
-SET(COMPILER_FLAGS "-Wall -Werror")
+SET(COMPILER_FLAGS "-g -Wall -Werror -pedantic -pedantic-errors -Wextra -Wwrite-strings")
 endif()
 SET(CMAKE_CXX_FLAGS " ${COMPILER_FLAGS}")
 
