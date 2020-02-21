@@ -7,10 +7,10 @@
 #include "UnrecognizedTokenExcep.hpp"
 
 template<typename ExType = UnrecognizedTokenException>
-class UnrecognizedTokenExceptionThrowerHandler : public IUnrecognizedTokenStrategy
+class UnrecognizedTokenExceptionThrowerHandler
 {
   public:
-    virtual void Handle(const std::string& Token) override
+    void Handle(const std::string& Token) const
     {
         std::ostringstream oss;
         oss << "Unrecognized Token: ";
@@ -20,10 +20,10 @@ class UnrecognizedTokenExceptionThrowerHandler : public IUnrecognizedTokenStrate
     }
 };
 
-class UnrecognizedStdErrLoggerHandler : public IUnrecognizedTokenStrategy
+class UnrecognizedStdErrLoggerHandler
 {
   public:
-    virtual void Handle(const std::string& Token) override
+    void Handle(const std::string& Token) const
     {
         std::ostringstream oss;
         oss << "Unrecognized Token: ";

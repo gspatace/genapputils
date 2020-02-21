@@ -20,7 +20,8 @@ TEST(SmartParams, SmartParamsMyException)
     const std::vector<ParamItem> allParams = {
         {"PARAM", true}};
 
-    ArgumentParser argParser(allParams, std::make_unique<ExceptionThrowerHandler<>>());
+    using ArgParser_t = ArgumentParser<ExceptionThrowerHandler<MissingRequiredException>>; 
+    ArgParser_t argParser(allParams);
     EXPECT_THROW({
         try
         {
@@ -41,7 +42,8 @@ TEST(SmartParams, SmartParamsStdLogicError)
     const std::vector<ParamItem> allParams = {
         {"PARAM", true}};
 
-    ArgumentParser argParser(allParams, std::make_unique<ExceptionThrowerHandler<std::logic_error>>());
+    using ArgParser_t = ArgumentParser<ExceptionThrowerHandler<std::logic_error>>;
+    ArgParser_t argParser(allParams);
     EXPECT_THROW({
         try
         {

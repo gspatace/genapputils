@@ -7,10 +7,10 @@
 #include "MissingRequiredExcep.hpp"
 
 template<typename ExType = MissingRequiredException>
-class ExceptionThrowerHandler : public IMissingRequiredParameterStrategy
+class ExceptionThrowerHandler
 {
   public:
-    virtual void Handle(const std::string& Parameter) override
+    void Handle(const std::string& Parameter) const
     {
         std::ostringstream oss;
         oss << "Parameter <";
@@ -20,10 +20,10 @@ class ExceptionThrowerHandler : public IMissingRequiredParameterStrategy
     }
 };
 
-class StdErrLoggerHandler : public IMissingRequiredParameterStrategy
+class StdErrLoggerHandler
 {
   public:
-    virtual void Handle(const std::string& Parameter) override
+    void Handle(const std::string& Parameter) const
     {
         std::ostringstream oss;
         oss << "Parameter <";
