@@ -6,4 +6,5 @@ class IMissingRequiredEnvVarStrategy
 {
   public:
     virtual void HandleMissingRequiredEnvVar(const std::string& EnvVarName) = 0;
+    virtual ~IMissingRequiredEnvVarStrategy() = default;
 };
