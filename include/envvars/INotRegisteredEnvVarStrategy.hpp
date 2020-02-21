@@ -6,4 +6,5 @@ class INotRegisteredEnvVarStrategy
 {
   public:
     virtual void HandleNotRegisteredEnvVar(const std::string& EnvVarName) = 0;
+    virtual ~INotRegisteredEnvVarStrategy() = default;
 };
