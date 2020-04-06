@@ -57,5 +57,5 @@ int main(int argc, char* argv[])
     std::cout << p1Value << std::endl;
     bool p2Value = argParser.GetValue<bool>("P2BOOL");
     std::cout << p2Value << std::endl;
-    std::cout << "Someone else was here";
+    std::cout << "Someone else was here twice";
 }
